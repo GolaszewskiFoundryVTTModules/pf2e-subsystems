@@ -152,8 +152,53 @@ export const getActButton = async(action, variant, skill, dc, disableElement, se
 }
 
 export const getCheckButton = async(skill, dc, simple, disableElement, secret = false, title) => {
-    return correctBackground(disableRollButton(disableElement, await foundry.applications.ux.TextEditor.implementation.enrichHTML(`@Check[type:${skill}|dc:${dc}|simple:${simple}${title ? `|title:${title}` : ''}${secret ? '|traits:secret' : ''}]`)));
+    const label = loreCheckLabel(skill);
+    return correctBackground(disableRollButton(disableElement, await foundry.applications.ux.TextEditor.implementation.enrichHTML(`@Check[type:${skill}|dc:${dc}|simple:${simple}${title ? `|title:${title}` : ''}${secret ? '|traits:secret' : ''}]${label ? `{${label}}` : ''}`)));
 }
+
+/* Lores known to the system (PF2E.SpecificLore): slug → label in the client's language. The slug comes from the
+   English label, as the system derives it for lore items ("Library Lore" → library-lore). Built on first use, after
+   the translations of all modules are loaded. */
+let systemLoreLabels = null;
+const loreSlug = (name) => {
+    const slug = game.pf2e.system.sluggify(name);
+    return /\blore\b/.test(slug) ? slug : `${slug}-lore`;
+};
+
+export const systemLores = () => {
+    if(systemLoreLabels) return systemLoreLabels;
+
+    const path = 'PF2E.SpecificLore';
+    const local = foundry.utils.getProperty(game.i18n.translations, path) ?? {};
+    const english = foundry.utils.getProperty(game.i18n._fallback ?? {}, path) ?? {};
+    systemLoreLabels = new Map();
+    for(const key of new Set([...Object.keys(english), ...Object.keys(local)])) {
+        const source = typeof english[key] === 'string' ? english[key] : local[key];
+        const label = typeof local[key] === 'string' ? local[key] : source;
+        if(typeof source !== 'string') continue;
+
+        systemLoreLabels.set(loreSlug(source), label);
+    }
+
+    return systemLoreLabels;
+};
+
+/* Label of a lore check button: the system lore's label, with the word "Lore" in front when the label lacks it
+   (translations may list lores by topic alone). Null for anything that is not a lore known to the system, which
+   keeps the system's own label. */
+export const loreCheckLabel = (skill) => {
+    if(!skill?.endsWith('-lore')) return null;
+
+    const label = systemLores().get(skill);
+    if(!label) return null;
+
+    const word = game.i18n.localize('PF2E.SkillLore');
+    return label.includes(word) ? label : `${word}: ${label}`;
+};
+
+/* Options for lore inputs: system lores by label. */
+export const loreOptions = () => [...systemLores()].map(([value, name]) => ({ value, name }))
+    .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
 
 export const versionCompare = (current, target) => {
     const currentSplit = current.split(".").map((x) => Number.parseInt(x));

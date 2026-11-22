@@ -393,4 +393,12 @@ export const extendedSkills = () => ({
         return acc;
     }, {}),
     perception: { value: 'perception', name: game.i18n.localize('PF2E.PerceptionLabel') },
+    ...Object.keys(CONFIG.PF2E.saves).reduce((acc, save) => {
+        acc[save] = {
+            value: save,
+            name: game.i18n.localize(CONFIG.PF2E.saves[save]),
+        };
+
+        return acc;
+    }, {}),
 });

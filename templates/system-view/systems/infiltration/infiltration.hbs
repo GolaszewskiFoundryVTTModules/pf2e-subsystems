@@ -1,4 +1,5 @@
 <div class="event-outer-container">
+    <datalist id="pf2e-subsystems-lores">{{#each this.loreOptions}}<option value="{{this.value}}">{{this.name}}</option>{{/each}}</datalist>
     <div class="flexrow">
         {{> "modules/pf2e-subsystems/templates/partials/navigate-back.hbs" label=(localize "PF2ESubsystems.Infiltration.NavigateBack") action="navigateToSystem" showTour=this.event clipboardFallback=this.clipboardFallback }}
         {{#if (or this.isGM this.event.preparations.usesPreparation)}}
@@ -38,7 +39,7 @@
                                 {{#if this.isGM}}<i class="fa-solid fa-caret-down clickable-icon {{#if (eq this.event.awarenessPoints.current 0)}}disabled{{/if}} event-section-number-lower" {{#if (gt this.event.awarenessPoints.current 0)}}data-action="infiltrationUpdateAwarenessPoints"{{/if}} data-event="{{this.event.id}}"></i>{{/if}}
                                 {{#if this.isGM}}<i class="fa-solid fa-caret-down clickable-icon {{#if (eq this.event.awarenessPoints.hidden 0)}}disabled{{/if}} event-section-number-lower-diagonal" {{#if (gt this.event.awarenessPoints.hidden 0)}}data-action="infiltrationUpdateHiddenAwarenessPoints"{{/if}} data-event="{{this.event.id}}"></i>{{/if}}
                             {{else}}
-                                <i class="fa-solid fa-plus" data-action="addData" data-path="{{concat "events." this.event.id ".awarenessPoints.breakpoints"}}" title="{{localize "Add additional awareness breakpoint"}}"></i>
+                                <i class="fa-solid fa-plus" data-action="addData" data-path="{{concat "events." this.event.id ".awarenessPoints.breakpoints"}}" title="{{localize "PF2ESubsystems.Infiltration.AddAwarenessBreakpoint"}}"></i>
                             {{/if}}
                         </div>
                     </div>
@@ -317,7 +318,7 @@
                                                                             {{#each this.columns.skill}}
                                                                                 <div class="event-skill-grid-cell-container">
                                                                                     {{#if this.lore}}
-                                                                                        <input type="text" value="{{this.skill}}" class="infiltration-obstacle-skill tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-objective="{{this.objective}}" data-obstacle="{{this.obstacle}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
+                                                                                        <input type="text" list="pf2e-subsystems-lores" value="{{this.skill}}" class="infiltration-obstacle-skill tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-objective="{{this.objective}}" data-obstacle="{{this.obstacle}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
                                                                                     {{else}}
                                                                                         <select name="{{concat "events." this.event ".objectives." this.objective ".obstacles." this.obstacle ".skillChecks." this.skillCheck ".skills." this.id ".skill" }}" class="tertiary-container primary-text-container event-skill-grid-cell">
                                                                                             {{selectOptions ../../../skillOptions selected=this.skill valueAttr="value" labelAttr="name" localize=true}}
@@ -601,7 +602,7 @@
                                                                         {{#each this.columns.skill}}
                                                                             <div class="event-skill-grid-cell-container">
                                                                                 {{#if this.lore}}
-                                                                                    <input type="text" value="{{this.skill}}" class="infiltration-complication-skill tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-complication="{{this.complication}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
+                                                                                    <input type="text" list="pf2e-subsystems-lores" value="{{this.skill}}" class="infiltration-complication-skill tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-complication="{{this.complication}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
                                                                                 {{else}}
                                                                                     <select name="{{concat "events." this.event ".complications." this.complication ".skillChecks." this.skillCheck ".skills." this.id ".skill" }}" class="tertiary-container primary-text-container event-skill-grid-cell">
                                                                                         {{selectOptions ../../../skillOptions selected=this.skill valueAttr="value" labelAttr="name" localize=true}}
@@ -803,7 +804,7 @@
                                                 <div class="title-small-container">
                                                     {{this.name}}
                                                 </div>
-                                                {{#if (gt this.maxAttempts 0)}}<div class="text-helper-big preparation-section-attempts-counter">{{localize "Max Attempts:"}}&nbsp;{{this.maxAttempts}}</div>{{/if}}
+                                                {{#if (gt this.maxAttempts 0)}}<div class="text-helper-big preparation-section-attempts-counter">{{localize "PF2ESubsystems.Infiltration.Preparations.MaxAttempts"}}:&nbsp;{{this.maxAttempts}}</div>{{/if}}
                                                 <i class="fa-solid {{#if this.open}}fa-angle-down{{else}}fa-angle-up{{/if}} clickable-icon event-section-opener" data-action="infiltrationPreparationsToggleOpenActivity" data-activity="{{this.id}}"></i> 
                                             {{/if}}
                                         </div>
@@ -868,7 +869,7 @@
                                                                     {{#each this.columns.skill}}
                                                                         <div class="event-skill-grid-cell-container">
                                                                             {{#if this.lore}}
-                                                                                <input type="text" value="{{this.skill}}" class="infiltration-activity-skill tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-activity="{{this.activity}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
+                                                                                <input type="text" list="pf2e-subsystems-lores" value="{{this.skill}}" class="infiltration-activity-skill tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-activity="{{this.activity}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
                                                                             {{else}}
                                                                                 <select name="{{concat "events." this.event ".preparations.activities." this.activity ".skillChecks." this.skillCheck ".skills." this.id ".skill" }}" class="tertiary-container primary-text-container event-skill-grid-cell">
                                                                                     {{selectOptions ../../../skillOptions selected=this.skill valueAttr="value" labelAttr="name" localize=true}}

@@ -2,6 +2,8 @@ import { MODULE_ID } from "../data/constants";
 import SystemView from "../module/systemView";
 import { versionCompare } from "./helpers";
 
+export { loreCheckLabel, systemLores } from "./helpers";
+
 export const openSubsystemView = async (tab, event, options) => {
   new SystemView(tab, event, false, options).render(true);
 };

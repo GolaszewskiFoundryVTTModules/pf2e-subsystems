@@ -1,4 +1,5 @@
 <div class="event-outer-container">
+    <datalist id="pf2e-subsystems-lores">{{#each this.loreOptions}}<option value="{{this.value}}">{{this.name}}</option>{{/each}}</datalist>
     {{> "modules/pf2e-subsystems/templates/partials/navigate-back.hbs" label=(localize "PF2ESubsystems.Research.NavigateBack") action="navigateToSystem" showTour=this.event clipboardFallback=this.clipboardFallback }}
     <div class="event-container">
         <div class="event-sidebar">
@@ -187,7 +188,7 @@
                                                                         {{#each this.columns.skill}}
                                                                             <div class="event-skill-grid-cell-container">
                                                                                 {{#if this.lore}}
-                                                                                    <input type="text" value="{{this.skill}}" class="research-skill-check-input tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-check="{{this.researchCheck}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
+                                                                                    <input type="text" list="pf2e-subsystems-lores" value="{{this.skill}}" class="research-skill-check-input tertiary-container primary-text-container event-skill-grid-cell" data-event="{{this.event}}" data-check="{{this.researchCheck}}" data-skill-check="{{this.skillCheck}}" data-skill="{{this.id}}" />
                                                                                 {{else}}
                                                                                     <select name="{{concat "events." this.event ".researchChecks." this.researchCheck ".skillChecks." this.skillCheck ".skills." this.id ".skill" }}" class="tertiary-container primary-text-container event-skill-grid-cell">
                                                                                         {{selectOptions ../../../skillOptions selected=this.skill valueAttr="value" labelAttr="name" localize=true}}
@@ -250,7 +251,7 @@
                                                 {{this.name}}
                                             </div>
                                             <div class="event-number-container-rows">
-                                                {{localize "Research Points"}}
+                                                {{localize "PF2ESubsystems.Research.ResearchPoints"}}
                                                 <div class="event-number-container-row">
                                                     {{#if ../isGM}}<i class="fa-solid fa-caret-left clickable-icon {{#if (eq this.currentResearchPoints 0)}}disabled{{/if}} event-section-number-lower" {{#if (gt this.currentResearchPoints 0)}}data-action="researhCheckPointsUpdate"{{/if}} data-event="{{../event.id}}" data-check="{{this.id}}"></i>{{/if}}
                                                     {{this.currentResearchPoints}}{{#if (or ../isGM (not ../settings.hiddenFields.researchCheckMaxRP))}}/{{this.maximumResearchPoints}}{{/if}}

@@ -1,4 +1,5 @@
 <div class="event-outer-container">
+    <datalist id="pf2e-subsystems-lores">{{#each this.loreOptions}}<option value="{{this.value}}">{{this.name}}</option>{{/each}}</datalist>
     {{#> modules/pf2e-subsystems/templates/partials/navigate-back.hbs label=(localize "PF2ESubsystems.Influence.NavigateBack") showTour=this.event action="navigateToSystem" clipboardFallback=this.clipboardFallback }}
         {{#if ../event.linkedNPCs}}
             <button class="secondary-container event-npc-selection" data-action="influenceOpenLinkedNPCs" data-event="{{../event.id}}" title="{{localize "PF2ESubsystems.Influence.NPCLinkDialogTitle"}}"><i class="fa-solid fa-users"></i></button>
@@ -129,7 +130,7 @@
                                             {{#each this.skill}}
                                                 <div class="event-skill-grid-cell-container">
                                                     {{#if this.lore}}
-                                                        <input type="text" value="{{this.skill}}" data-event="{{this.event}}" data-discovery="{{this.id}}" class="influence-discovery-skill-input tertiary-container primary-text-container event-skill-grid-cell" />
+                                                        <input type="text" list="pf2e-subsystems-lores" value="{{this.skill}}" data-event="{{this.event}}" data-discovery="{{this.id}}" class="influence-discovery-skill-input tertiary-container primary-text-container event-skill-grid-cell" />
                                                     {{else}}
                                                         <select name="{{concat "events." this.event ".discoveries." this.id ".skill" }}" class="tertiary-container primary-text-container event-skill-grid-cell">
                                                             {{selectOptions ../../skillOptions selected=this.skill valueAttr="value" labelAttr="name" localize=true}}
@@ -226,7 +227,7 @@
                                             {{#each this.skill}}
                                                 <div class="event-skill-grid-cell-container">
                                                     {{#if this.lore}}
-                                                        <input type="text" value="{{this.skill}}" data-event="{{this.event}}" data-skill="{{this.id}}" class="influence-influence-skill-skill-input tertiary-container primary-text-container event-skill-grid-cell" />
+                                                        <input type="text" list="pf2e-subsystems-lores" value="{{this.skill}}" data-event="{{this.event}}" data-skill="{{this.id}}" class="influence-influence-skill-skill-input tertiary-container primary-text-container event-skill-grid-cell" />
                                                     {{else}}
                                                         <select name="{{concat "events." this.event ".influenceSkills." this.id ".skill" }}" class="tertiary-container primary-text-container event-skill-grid-cell">
                                                             {{selectOptions ../../skillOptions selected=this.skill valueAttr="value" labelAttr="name" localize=true}}
