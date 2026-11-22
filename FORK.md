@@ -15,8 +15,9 @@ podsystemów (ustawienia `pf2e-subsystems.*`).
 - Poprawki: tytuł rzutu z nazwą umiejętności zamiast "undefined"; napisy szablonów spod kluczy językowych ("Research
   Points", "Add additional awareness breakpoint", "Max Attempts"); każda część widoku dostaje własną kopię kontekstu —
   pełny render (np. `lib.openSubsystemView("infiltration", id)`) pokazywał w infiltracji listę zamiast zdarzenia.
-- `module.json` bez `manifest` i `download` oryginału, więc aktualizacja Foundry nie podmieni forka; wersja to wydanie
-  oryginału z czwartym członem (`0.8.10.1`).
+- `module.json` bez `manifest` i `download` oryginału, także w relacji wymagającej Theming, więc aktualizacja
+  Foundry nie podmieni forka ani jego zależności oryginałem; wersja to wydanie oryginału z czwartym członem
+  (`0.8.10.2`).
 
 ## Build i wdrożenie
 
