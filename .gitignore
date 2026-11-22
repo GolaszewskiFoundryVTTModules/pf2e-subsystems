@@ -9,3 +9,4 @@ packs/**/MANIFEST-*
 node_modules
 Subsystems.js.map
 dist/
+.deploy-state/
