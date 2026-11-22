@@ -8,3 +8,4 @@ packs/**/LOG
 packs/**/MANIFEST-*
 node_modules
 Subsystems.js.map
+dist/

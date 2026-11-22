@@ -14,6 +14,8 @@
     "scripts": {
         "start": "concurrently \"rollup -c --watch\" \"node C:/FoundryDev/main.js --dataPath=C:/FoundryDevFiles  --noupnp\" \"gulp\"",
         "pushLDBtoYML": "node ./tools/pushLDBtoYML.mjs",
-        "pullYMLtoLDB": "node ./tools/pullYMLtoLDB.mjs"
+        "pullYMLtoLDB": "node ./tools/pullYMLtoLDB.mjs",
+        "build": "rollup -c && gulp less && node ./tools/pullYMLtoLDB.mjs",
+        "package": "npm run build && node ./tools/package.mjs"
     }
 }
